@@ -1,0 +1,23 @@
+{
+  "name": "koitoerwebsite",
+  "version": "1.0.0",
+  "description": "A koitoer test website",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test here sorry\" && exit 1",
+    "lint": "standard",
+    "fixStyle": "standard --fix",
+    "staticDeploy": "./bin/download_vendor_libs.sh && ./bin/deploy_static_files.sh",
+    "staticDestroy": "./bin/delete_static_files.sh && echo \"Now you can run 'sls remove' on the stage\""
+  },
+  "author": "Koitoer Web",
+  "dependencies": {
+    "graphql": "~0.9.1",
+    "lodash": "^4.17.15",
+    "uuid": "~3.0.1"
+  },
+  "devDependencies": {
+    "standard": "*"
+  },
+  "license": "MIT"
+}
