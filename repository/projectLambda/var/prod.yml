@@ -1,0 +1,4 @@
+Domain: dev.koitoer.com
+DynamoCapacity:
+    WriteCapacityUnits: 2
+    ReadCapacityUnits: 2

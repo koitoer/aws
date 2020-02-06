@@ -1,0 +1,92 @@
+service: shortener
+
+frameworkVersion: ">=1.8.0 <2.0.0"
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  devDynamoCapacityUnits:
+    WriteCapacityUnits: 1
+    ReadCapacityUnits: 1
+  prodDynamoCapacityUnits:
+    WriteCapacityUnits: 2
+    ReadCapacityUnits: 2
+  extra: ${file(var/${self:custom.stage}.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    SLS_STAGE: ${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:table/${opt:stage, self:provider.stage}-shortened-urls"
+      Effect: Allow
+    - Action:
+        - dynamodb:PutItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:table/${opt:stage, self:provider.stage}-maps-table"
+      Effect: Allow
+
+functions:
+  main:
+    handler: main/index.handler
+    events:
+      - http:
+          path: /
+          method: get
+  create:
+    handler: create/index.handler
+    events:
+      - http:
+          path: /
+          method: post
+  redirect:
+    handler: redirect/index.handler
+    events:
+      - http:
+          path: /{slug}
+          method: get
+    environment:
+      URL_INSTALL: https://serverless.com/framework/docs/providers/aws/guide/installation/
+      URL_ABCD: http://serverless.com/
+      URL_AWS: https://aws.amazon.com/
+  maps:
+    handler: maps/index.handler
+    events:
+      - http:
+          path: /maps/location
+          method: post
+
+resources:
+  Resources:
+    MyTestBucket:
+      Type: "AWS::S3::Bucket"
+    LinkDB:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: slug
+            AttributeType: S
+        KeySchema:
+          - AttributeName: slug
+            KeyType: HASH
+        ProvisionedThroughput: ${self:custom.${self:custom.stage}DynamoCapacityUnits}
+        TableName: "${opt:stage, self.provider.stage}-shortened-urls"
+    MapDB:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: key
+            AttributeType: S
+        KeySchema:
+          - AttributeName: key
+            KeyType: HASH
+        ProvisionedThroughput: ${self:custom.${self:custom.stage}DynamoCapacityUnits}
+        TableName: "${opt:stage, self.provider.stage}-maps-table"
+    CustomDomainMap:
+      Type: "AWS::ApiGateway::BasePathMapping"
+      Properties:
+        DomainName: ${self:custom.extra.Domain}
+        Stage: ${self:custom.stage}
+        RestApiId: {Ref: ApiGatewayRestApi}
