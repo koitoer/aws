@@ -30,6 +30,16 @@ functions:
           arn: '${self:custom.${self:custom.stage}CognitoPool}'
         path: /test
         method: get
+  gql:
+    handler: backend/gql_endpoint.handler
+    events:
+    - http:
+        authorizer:
+          name: pool_auth
+          arn: '${self:custom.${self:custom.stage}CognitoPool}'
+        cors: true
+        path: /gql
+        method: post
 
 resources:
   Mappings: ${file(resources/mappings.yml)}
@@ -72,7 +82,7 @@ resources:
             MinTTL: 10
             ForwardedValues:
               QueryString: true
-              
+
 package:
   exclude:
     - bin/**

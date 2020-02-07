@@ -17,6 +17,12 @@
         "LogGroupName": "/aws/lambda/koitoersite-dev-test"
       }
     },
+    "GqlLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/koitoersite-dev-gql"
+      }
+    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -62,6 +68,9 @@
                     },
                     {
                       "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/koitoersite-dev-test:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/koitoersite-dev-gql:*"
                     }
                   ]
                 },
@@ -76,6 +85,9 @@
                     },
                     {
                       "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/koitoersite-dev-test:*:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/koitoersite-dev-gql:*:*"
                     }
                   ]
                 }
@@ -104,7 +116,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/koitoersite/dev/1580961160290-2020-02-06T03:52:40.290Z/koitoersite.zip"
+          "S3Key": "serverless/koitoersite/dev/1581052104503-2020-02-07T05:08:24.503Z/koitoersite.zip"
         },
         "FunctionName": "koitoersite-dev-presign",
         "Handler": "backend/pre_signup.handler",
@@ -123,14 +135,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "PresignLambdaVersionsAhwLppb0Yi9Pz9u5uOg8LMGz7PTmY20zMgysvygw": {
+    "PresignLambdaVersionWYu3CfIfP8pKmsXAq1CrqviTDLnMD0TftOiPu9Nlw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "PresignLambdaFunction"
         },
-        "CodeSha256": "/sAhwLppb0Yi9Pz9u5uOg8LMGz+7PTmY20zMgysvygw="
+        "CodeSha256": "WYu3CfIfP8pK/msXAq+1CrqviTDLnMD0TftOiPu9Nlw="
       }
     },
     "TestLambdaFunction": {
@@ -140,7 +152,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/koitoersite/dev/1580961160290-2020-02-06T03:52:40.290Z/koitoersite.zip"
+          "S3Key": "serverless/koitoersite/dev/1581052104503-2020-02-07T05:08:24.503Z/koitoersite.zip"
         },
         "FunctionName": "koitoersite-dev-test",
         "Handler": "backend/test_auth.handler",
@@ -159,14 +171,50 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "TestLambdaVersionsAhwLppb0Yi9Pz9u5uOg8LMGz7PTmY20zMgysvygw": {
+    "TestLambdaVersionWYu3CfIfP8pKmsXAq1CrqviTDLnMD0TftOiPu9Nlw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TestLambdaFunction"
         },
-        "CodeSha256": "/sAhwLppb0Yi9Pz9u5uOg8LMGz+7PTmY20zMgysvygw="
+        "CodeSha256": "WYu3CfIfP8pK/msXAq+1CrqviTDLnMD0TftOiPu9Nlw="
+      }
+    },
+    "GqlLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/koitoersite/dev/1581052104503-2020-02-07T05:08:24.503Z/koitoersite.zip"
+        },
+        "FunctionName": "koitoersite-dev-gql",
+        "Handler": "backend/gql_endpoint.handler",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 6
+      },
+      "DependsOn": [
+        "GqlLogGroup",
+        "IamRoleLambdaExecution"
+      ]
+    },
+    "GqlLambdaVersionWYu3CfIfP8pKmsXAq1CrqviTDLnMD0TftOiPu9Nlw": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GqlLambdaFunction"
+        },
+        "CodeSha256": "WYu3CfIfP8pK/msXAq+1CrqviTDLnMD0TftOiPu9Nlw="
       }
     },
     "ApiGatewayRestApi": {
@@ -185,6 +233,21 @@
           ]
         },
         "PathPart": "test",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceGql": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "gql",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -236,6 +299,52 @@
         }
       }
     },
+    "ApiGatewayMethodGqlOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Credentials": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Credentials": "'false'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceGql"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
     "ApiGatewayMethodTestGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -278,6 +387,48 @@
       },
       "DependsOn": "1UnderscoreqLwRiooaVApiGatewayAuthorizer"
     },
+    "ApiGatewayMethodGqlPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceGql"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "1UnderscoreqLwRiooaVApiGatewayAuthorizer"
+        },
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GqlLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": "1UnderscoreqLwRiooaVApiGatewayAuthorizer"
+    },
     "1UnderscoreqLwRiooaVApiGatewayAuthorizer": {
       "Type": "AWS::ApiGateway::Authorizer",
       "Properties": {
@@ -293,7 +444,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1580961160308": {
+    "ApiGatewayDeployment1581052104523": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -302,7 +453,8 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodTestGet"
+        "ApiGatewayMethodTestGet",
+        "ApiGatewayMethodGqlPost"
       ]
     },
     "TestLambdaPermissionApiGateway": {
@@ -311,6 +463,39 @@
         "FunctionName": {
           "Fn::GetAtt": [
             "TestLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "GqlLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GqlLambdaFunction",
             "Arn"
           ]
         },
@@ -418,13 +603,19 @@
     "PresignLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "PresignLambdaVersionsAhwLppb0Yi9Pz9u5uOg8LMGz7PTmY20zMgysvygw"
+        "Ref": "PresignLambdaVersionWYu3CfIfP8pKmsXAq1CrqviTDLnMD0TftOiPu9Nlw"
       }
     },
     "TestLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TestLambdaVersionsAhwLppb0Yi9Pz9u5uOg8LMGz7PTmY20zMgysvygw"
+        "Ref": "TestLambdaVersionWYu3CfIfP8pKmsXAq1CrqviTDLnMD0TftOiPu9Nlw"
+      }
+    },
+    "GqlLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GqlLambdaVersionWYu3CfIfP8pKmsXAq1CrqviTDLnMD0TftOiPu9Nlw"
       }
     },
     "ServiceEndpoint": {
