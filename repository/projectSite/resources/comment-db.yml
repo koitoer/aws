@@ -1,0 +1,30 @@
+---
+Type: "AWS::DynamoDB::Table"
+Properties:
+  AttributeDefinitions:
+    - AttributeName: article_id
+      AttributeType: S
+    - AttributeName: commenter_id
+      AttributeType: S
+    - AttributeName: posted_at
+      AttributeType: N
+  KeySchema:
+    - AttributeName: article_id
+      KeyType: HASH
+    - AttributeName: posted_at
+      KeyType: RANGE
+  ProvisionedThroughput:
+    ReadCapacityUnits: 1
+    WriteCapacityUnits: 1
+  GlobalSecondaryIndexes:
+    - IndexName: commenter_x_posted
+      KeySchema:
+        - AttributeName: commenter_id
+          KeyType: HASH
+        - AttributeName: posted_at
+          KeyType: RANGE
+      Projection:
+        ProjectionType: ALL
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
