@@ -1,3 +1,12 @@
+const listArticlesQuery = `
+{
+  articles {
+    id
+    author_id
+    link
+  }
+}`
+
 function testPage () {
   document.getElementById('buttonGet').addEventListener('click', () => {
     withToken().then(token => {
@@ -20,7 +29,11 @@ function testPage () {
   })
 
   document.getElementById('buttonListArticles').addEventListener('click', () => {
-    // TODO
+    gqlQuery(listArticlesQuery, {}, true).then(respObject => {
+      document.getElementById('output').innerHTML = JSON.stringify(respObject, null, 2)
+    }).catch(err => {
+      console.log('Sad days: ' + err)
+    })
   })
 
   document.getElementById('buttonCreateArticle').addEventListener('click', () => {

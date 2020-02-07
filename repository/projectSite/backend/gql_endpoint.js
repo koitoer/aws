@@ -1,24 +1,10 @@
 'use strict'
 
-const G = require('graphql')
-
-const schema = new G.GraphQLSchema({
-  query: new G.GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      ping: {
-        type: G.GraphQLString,
-        // {"ping": "pong"}
-        resolve () {
-          return 'pong'
-        }
-      }
-    }
-  })
-})
+const graphql = require('graphql')
+const schema = require('./lib/schema')
 
 function runQuery (query, claims, variables) {
-  return G.graphql(schema, query, {claims: claims}, null, variables)
+  return graphql.graphql(schema.Schema, query, {claims: claims}, null, variables)
 }
 
 module.exports.handler = (event, context, cb) => {

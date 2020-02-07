@@ -207,7 +207,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/koitoersite/dev/1581053037084-2020-02-07T05:23:57.084Z/koitoersite.zip"
+          "S3Key": "serverless/koitoersite/dev/1581053930184-2020-02-07T05:38:50.184Z/koitoersite.zip"
         },
         "FunctionName": "koitoersite-dev-presign",
         "Handler": "backend/pre_signup.handler",
@@ -236,14 +236,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "PresignLambdaVersionBMgRbp5igs61hqET4rofUCS2FoIZCVImV3iuevSw": {
+    "PresignLambdaVersiondd8ytNONptlKlVRSdUKVwmu3gOQUs0DiQ3rm4aNPk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "PresignLambdaFunction"
         },
-        "CodeSha256": "BMgRbp5igs61hqET+4rofUCS2/FoIZCV+ImV3iuevSw="
+        "CodeSha256": "dd8ytNONpt+lKlVRSdUKVwmu+3gOQUs0DiQ3rm4aNPk="
       }
     },
     "TestLambdaFunction": {
@@ -253,7 +253,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/koitoersite/dev/1581053037084-2020-02-07T05:23:57.084Z/koitoersite.zip"
+          "S3Key": "serverless/koitoersite/dev/1581053930184-2020-02-07T05:38:50.184Z/koitoersite.zip"
         },
         "FunctionName": "koitoersite-dev-test",
         "Handler": "backend/test_auth.handler",
@@ -282,14 +282,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "TestLambdaVersionBMgRbp5igs61hqET4rofUCS2FoIZCVImV3iuevSw": {
+    "TestLambdaVersiondd8ytNONptlKlVRSdUKVwmu3gOQUs0DiQ3rm4aNPk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TestLambdaFunction"
         },
-        "CodeSha256": "BMgRbp5igs61hqET+4rofUCS2/FoIZCV+ImV3iuevSw="
+        "CodeSha256": "dd8ytNONpt+lKlVRSdUKVwmu+3gOQUs0DiQ3rm4aNPk="
       }
     },
     "GqlLambdaFunction": {
@@ -299,7 +299,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/koitoersite/dev/1581053037084-2020-02-07T05:23:57.084Z/koitoersite.zip"
+          "S3Key": "serverless/koitoersite/dev/1581053930184-2020-02-07T05:38:50.184Z/koitoersite.zip"
         },
         "FunctionName": "koitoersite-dev-gql",
         "Handler": "backend/gql_endpoint.handler",
@@ -328,14 +328,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GqlLambdaVersionBMgRbp5igs61hqET4rofUCS2FoIZCVImV3iuevSw": {
+    "GqlLambdaVersiondd8ytNONptlKlVRSdUKVwmu3gOQUs0DiQ3rm4aNPk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GqlLambdaFunction"
         },
-        "CodeSha256": "BMgRbp5igs61hqET+4rofUCS2/FoIZCV+ImV3iuevSw="
+        "CodeSha256": "dd8ytNONpt+lKlVRSdUKVwmu+3gOQUs0DiQ3rm4aNPk="
       }
     },
     "ApiGatewayRestApi": {
@@ -565,7 +565,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1581053037105": {
+    "ApiGatewayDeployment1581053930206": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -830,19 +830,19 @@
     "PresignLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "PresignLambdaVersionBMgRbp5igs61hqET4rofUCS2FoIZCVImV3iuevSw"
+        "Ref": "PresignLambdaVersiondd8ytNONptlKlVRSdUKVwmu3gOQUs0DiQ3rm4aNPk"
       }
     },
     "TestLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TestLambdaVersionBMgRbp5igs61hqET4rofUCS2FoIZCVImV3iuevSw"
+        "Ref": "TestLambdaVersiondd8ytNONptlKlVRSdUKVwmu3gOQUs0DiQ3rm4aNPk"
       }
     },
     "GqlLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GqlLambdaVersionBMgRbp5igs61hqET4rofUCS2FoIZCVImV3iuevSw"
+        "Ref": "GqlLambdaVersiondd8ytNONptlKlVRSdUKVwmu3gOQUs0DiQ3rm4aNPk"
       }
     },
     "ServiceEndpoint": {
