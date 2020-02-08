@@ -7,6 +7,19 @@ const listArticlesQuery = `
   }
 }`
 
+const newArticleQuery = `
+mutation ($title: String!, $link: String!){
+  createArticle(article: {
+    link: $link,
+    title: $title
+  }) {
+    author_id
+    id
+    posted_at
+    link
+    title
+  }
+}`
 function testPage () {
   document.getElementById('buttonGet').addEventListener('click', () => {
     withToken().then(token => {
@@ -37,6 +50,17 @@ function testPage () {
   })
 
   document.getElementById('buttonCreateArticle').addEventListener('click', () => {
-    // TODO
+    gqlQuery(
+      newArticleQuery,
+      {
+        title: 'Test Article',
+        link: 'https://read.acloud.guru/'
+      },
+      true
+    ).then(respObject => {
+      document.getElementById('output').innerHTML = JSON.stringify(respObject, null, 2)
+    }).catch(err => {
+      console.log('Sad days: ' + err)
+    })
   })
 }

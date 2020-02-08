@@ -2,6 +2,7 @@
 
 const G = require('graphql')
 const types = require('./types')
+const mutators = require('./mutators')
 
 const rootQuery = new G.GraphQLObjectType({
   name: 'RootQueryType',
@@ -16,7 +17,16 @@ const rootQuery = new G.GraphQLObjectType({
     article: types.Article
   }
 })
-
-module.exports.Schema = new G.GraphQLSchema({
+const privateSchema = new G.GraphQLSchema({
+  mutation: mutators.Mutations,
   query: rootQuery
 })
+
+const publicSchema = new G.GraphQLSchema({
+  query: rootQuery
+})
+
+module.exports = {
+  Schema: privateSchema,
+  PublicSchema: publicSchema
+}
