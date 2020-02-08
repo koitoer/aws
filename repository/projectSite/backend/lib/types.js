@@ -9,6 +9,9 @@ const comment = new G.GraphQLObjectType({
     commenter_id: {
       type: G.GraphQLString
     },
+    commenter_fullname: {
+      type: G.GraphQLString
+    },
     article_id: {
       type: G.GraphQLString
     },
@@ -28,6 +31,9 @@ const articleType = new G.GraphQLObjectType({
       type: G.GraphQLString
     },
     author_id: {
+      type: G.GraphQLString
+    },
+    author_fullname: {
       type: G.GraphQLString
     },
     score: {

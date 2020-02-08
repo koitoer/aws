@@ -6,7 +6,6 @@ const ddb = require('./dynamo')
 function resolveArticle (context, args) {
   console.log("In resolver for article type", context)
   console.log(args)
-  console.log(fieldNodes)
   return ddb.ArticleDB.get({
     Key: {
       id: args.id
