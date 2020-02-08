@@ -91,6 +91,10 @@ functions:
         cors: true
         path: /gql
         method: post
+    - http:
+        cors: true
+        path: /readgql
+        method: post
 
 resources:
   Mappings: ${file(resources/mappings.yml)}
