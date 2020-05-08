@@ -10,7 +10,7 @@ phases:
       - echo hola
 artifacts:
   files:
-    - repository/portfolio/index.html
-    - repository/portfolio/favicon.icon
-    - repository/portfolio/styles/main.css
-    - repository/portfolio/images/*
+    - index.html
+    - favicon.icon
+    - styles/main.css
+    - images/*
