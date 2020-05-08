@@ -1,0 +1,12 @@
+version: 0.1
+
+phases:
+  build:
+    commands:
+      - echo Nothing to do yet.
+artifacts:
+  files:
+    - repository/portfolio/index.html
+    - repository/portfolio/favicon.icon
+    - repository/portfolio/styles/main.css
+    - repository/portfolio/images/*
