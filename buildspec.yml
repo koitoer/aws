@@ -10,4 +10,4 @@ artifacts:
     - repository/portfolio/favicon.icon
     - repository/portfolio/styles/main.css
     - repository/portfolio/images/*
-  base-directory: repository/portfolio
+  discard-paths: yes
