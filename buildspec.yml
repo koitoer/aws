@@ -13,4 +13,4 @@ artifacts:
     - favicon.icon
     - styles/main.css
     - images/*
-    base-directory: 'repository/portfolio'
+  base-directory: 'repository/portfolio'
