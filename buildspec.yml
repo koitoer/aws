@@ -3,12 +3,14 @@ version: 0.1
 phases:
   build:
     commands:
-      - echo Nothing to do yet.
+      - mv repository/portfolio/**/* ./
+      - rm -R repository/portfolio
+  post_build:
+    commands:
+      - echo hola
 artifacts:
   files:
     - repository/portfolio/index.html
     - repository/portfolio/favicon.icon
     - repository/portfolio/styles/main.css
     - repository/portfolio/images/*
-  base-directory: 'repository/portfolio'
-  discard-paths: yes
