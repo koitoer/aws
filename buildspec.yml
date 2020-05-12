@@ -3,11 +3,11 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Entered the install phase...
+      - echo Entered the install phase... v1
       - cd repository/portfolio && npm install
       - npm install
       - npm install --global webpack-cli
-      - npm run webpack
+      - cd repository/portfolio && npm run webpack
   post_build:
     commands:
       - echo post_build
