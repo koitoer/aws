@@ -3,8 +3,8 @@ version: 0.1
 phases:
   build:
     commands:
-      - npm install
       - cd repository/portfolio
+      - npm install
       - npm run webpack
   post_build:
     commands:
