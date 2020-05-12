@@ -5,8 +5,8 @@ phases:
     commands:
       - echo Entered the install phase...
       - cd repository/portfolio && npm install --production
-      - cd $CODEBUILD_SRC_DIR/../repository/portfolio && npm install --production
       - npm install --production
+      - npm run webpack
   post_build:
     commands:
       - echo post_build
