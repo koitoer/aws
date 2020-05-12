@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - cd $CODEBUILD_SRC_DIR/../repository/portfolio && npm install
+      - cd $CODEBUILD_SRC_DIR/../repository/portfolio && npm install $CODEBUILD_SRC_DIR/../repository/portfolio
       - cd $CODEBUILD_SRC_DIR/../repository/portfolio && npm run webpack
   post_build:
     commands:
