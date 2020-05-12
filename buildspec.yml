@@ -3,7 +3,8 @@ version: 0.1
 phases:
   build:
     commands:
-      - echo start
+      - npm install
+      - npm run webpack
   post_build:
     commands:
       - echo post_build
@@ -13,4 +14,5 @@ artifacts:
     - favicon.icon
     - styles/main.css
     - images/*
+    - dist/bundle.js
   base-directory: 'repository/portfolio'
