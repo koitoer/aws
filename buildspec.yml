@@ -17,4 +17,6 @@ artifacts:
     - styles/main.css
     - images/*
     - dist/bundle.js
+    - '*.json'
+    - '*.js'
   base-directory: 'repository/portfolio'
