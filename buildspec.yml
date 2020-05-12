@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Entered the install phase... v1
+      - echo Entered the install phase... v2
       - cd repository/portfolio && npm install
       - npm run webpack
   post_build:
@@ -12,7 +12,7 @@ phases:
 artifacts:
   files:
     - '*.html'
-    - favicon.icon
+    - favicon.ico
     - styles/main.css
     - images/*
     - dist/bundle.js
