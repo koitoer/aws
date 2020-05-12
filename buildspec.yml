@@ -9,7 +9,7 @@ phases:
       - echo post_build
 artifacts:
   files:
-    - index.html
+    - *.html
     - favicon.icon
     - styles/main.css
     - images/*
