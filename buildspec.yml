@@ -4,8 +4,9 @@ phases:
   build:
     commands:
       - echo Entered the install phase...
-      - cd repository/portfolio && npm install --production
-      - npm install --production
+      - cd repository/portfolio && npm install
+      - npm install
+      - npm install --global webpack-cli
       - npm run webpack
   post_build:
     commands:
