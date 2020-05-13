@@ -1,10 +1,14 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo Entered the pre-build phase
+      - cd repository/portfolio && npm install
+      - npm test
   build:
     commands:
-      - echo Entered the install phase... v2
-      - cd repository/portfolio && npm install
+      - echo Entered the install phase 
       - npm run webpack
   post_build:
     commands:
