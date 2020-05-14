@@ -1,10 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  entry: './js/main.js',
+  entry: {
+    portfolio: './js/main.js',
+    todo: './js/main-todo.js'
+  },
   output: {
     path : path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module:{
     rules: [{
