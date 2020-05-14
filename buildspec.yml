@@ -17,9 +17,9 @@ artifacts:
   files:
     - '*.html'
     - favicon.ico
-    - styles/main.css
+    - styles/*.css
     - images/*
-    - dist/bundle.js
+    - dist/*.js
     - '*.json'
     - '*.js'
   base-directory: 'repository/portfolio'
